@@ -15,7 +15,21 @@ software." [cite] To guide this process the Software Sustainability Institute's
 Criteria-based assessment checklist [cite] was applied to the project and the
 results shared with community [cite, storify the tweets?].
 
-[summary of report]
+The summary of that report: "Two categories of criteria: Usability, and
+Sustainability & Maintainability. Within Usability the criteria and percent
+fulfilled are as follows: Understandability (3/7: 43%), Documentation (3/14:
+21%), Buildability (4/6: 67%), Installability (5/10: 50%), Learnability (2/5:
+40%). Overall Usability criteria met 17/42: 40%.
+
+"Within Sustainability & Maintainability the criteria and percent fulfilled are:
+Identity (3/7: 43%), Copyright (2/6: 33%), Licencing (4/4: 100%), Governance
+(0/2: 0%), Community (2/11: 18%), Accessibility (4/11: 36%), Testability (3/17:
+18%), Portability (7/11: 64%), Supportability (7/19: 37%), Analysability (6/16:
+38%), Changeability (4/10: 40%), Evolvability (0/3: 0%), Interoperability (1/2:
+50%). Overall Sustainability & Maintainability criteria met: 43/119: 36%.
+
+"Overall fulfillment of criteria: 60/161 = 37%. (N/As are ignored for the
+purposes of these tallies)."
 
 [my response]
 
@@ -44,5 +58,5 @@ CTB:
 
 [Citations]
 
-
+http://goo.gl/MZGGhc 
  
