@@ -10,7 +10,7 @@ the basis for N published papers and has had N different contributors.
 Michael's background includes computer systems engineering, free and
 open-source systems, and microbiology; this combined with his prior experience
 as a user of the khmer suite gave him plenty of standing to generate opinions
-about how to implement Titus's goal of "superior science through superior
+about how to implement Titus's goal of "better science through superior
 software." [cite] To guide this process the Software Sustainability Institute's
 Criteria-based assessment checklist [cite] was applied to the project and the
 results shared with community [cite, storify the tweets?].
@@ -31,6 +31,13 @@ Identity (3/7: 43%), Copyright (2/6: 33%), Licensing (4/4: 100%), Governance
 
 "\textbf{Overall fulfillment of criteria: 60/161 = 37%}. (N/As are ignored for the
 purposes of these tallies)."
+
+The low fulfillment of the SSI's criteria is slightly embarrassing for the group
+as Titus is collaborator and co-author with SSI, quotes from him are featured
+in case study presentations [cite], and he is cited as someone who is doing
+things the correct way [recomputation manifesto citation]. This is sort of the
+point though: the goals were valued and so resources were gathered [cite R01
+blog post] and hired to address these issues.
 
 [dialogue, @CTB, add your own response and Qs]
 
@@ -58,4 +65,16 @@ CTB:
 [Citations]
 
 "Criteria-based assessment of the khmer suite" http://goo.gl/MZGGhc 
- 
+
+"Open Call for Projects" http://www.software.ac.uk/open-call
+
+"Institute Case Studies: From Consultancy Projects to Case Studies" http://www.software.ac.uk/attach/CaseStudies.pdf
+
+Wilson, G., Aruliah, D.A.,Titus Brown, C.T., Chue Hong, N. P., Davis, M., Guy, R. T.,
+Haddock, S.H.D, Huff, K., Mitchell, I.M., Plumbley, M., Waugh, B., White, E. P.
+and Wilson, P. Best Practices for Scientific Computing. CoRR, arXiv:1210.0530
+[cs.MS], 2012.
+
+"The five stars of research software" http://www.software.ac.uk/blog/2013-04-09-five-stars-research-software
+
+"The Recomputation Manifesto" http://www.software.ac.uk/blog/2013-07-09-recomputation-manifesto
