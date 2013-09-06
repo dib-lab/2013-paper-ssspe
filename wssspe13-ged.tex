@@ -1,110 +1,260 @@
-\documentclass{article}
-\bibliographystyle{plain}
+\documentclass[11pt]{article}
+\usepackage{simplemargins}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage[small,compact]{titlesec}
+
+\pagestyle{empty}
+
+\title{BIGDATA: Small: DA: DCM: Low-memory Streaming Prefilters for
+Biological Sequencing Data}
+\author{C. Titus Brown}
+\date{July 2012}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.70ex}
+\setallmargins{1in}
+
+\title{Walking the talk: adopting and adapting sustainable scientific software
+  development processes in a small biology lab.}
+
+\author{Michael R. Crusoe$^{1}$\\
+C. Titus Brown$^{2,1\ast}$\\
+\small \bf{1} Microbiology and Molecular Genetics,\\
+\small \bf{2} Computer Science and Engineering,\\
+\small Michigan State University, East Lansing, MI, USA\\
+\small $\ast$ Corresponding author: ctb@msu.edu}
+
 \begin{document}
 
-\begin{flushleft}
-{\Large \textbf{some clever title: the lived experience of walking the
-sustainable scientific software development walk}}
-\\
-Michael R. Crusoe$^{2}$, and
-C. Titus Brown$^{1,2\ast}$
-\\
-\bf{1} Computer Science and Engineering, Michigan State University, East Lansing, MI, USA
-\\
-\bf{2} Microbiology and Molecular Genetics, Michigan State University, East Lansing, MI, USA
-$\ast$ E-mail: ctb@msu.edu
-\end{flushleft}
+\maketitle
 
+\abstract{There's a funny thing about arguing that scientific
+software should be better designed, better tested, and more openly
+developed: one's peers may reasonably hold you to this higher
+standard.  This is the story of our attempt to figure out how to
+hold ourselves to these higher standards on the khmer project, 
+a small, single-lab software project in biology.}
 
-The funny thing about being known for loudly demanding that scientific software
-should be better written and be produced in an open collaborative fashion is
-that one is then going to be publicly held to this higher standard above and
-beyond what one's peers are. In July of 2013 Michael R. Crusoe became the new
-software engineer in C. Titus Brown's Genomics, Evolution, and Development lab
-at Michigan State University. This brief recounts his experience so far in the
-GED lab as an engineer and budding researcher including his assessment of the group's
-main body of code, and a discussion of how best to prioritize and pace the
-required infrastructure work alongside the research work and whatever unplanned
-work that happens. 
+\setlength{\parindent}{0pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.70ex}
 
-The GED lab is in a phase of tool building. The main body of code, for
-which Michael is now responsible for, is the khmer suite of nucleotide sequence
-analysis tools [cite]. It is now four years old and the basis for N
-published papers and has had 13 different contributors seven of which are
-currently active.  Michael's background includes computer systems engineering,
-free and open-source systems, and microbiology; this combined with his prior
-experience as a user of the khmer suite gave him plenty of standing to generate
-opinions about how to implement Titus's goal of "better science through superior
-software." [cite] To guide this process the Software Sustainability Institute's
-Criteria-based assessment checklist [cite] was applied to the project and the
-results shared with community [cite, storify the tweets?].
+\section{Introduction}
 
-The summary from that report: "There are two categories of criteria: Usability, and
-Sustainability \& Maintainability. Within Usability the criteria and percent
-fulfilled are as follows: Understandability (3/7: 43\%), Documentation (3/14:
-21\%), Buildability (4/6: 67\%), Installability (5/10: 50\%), Learnability (2/5:
-40\%). \textbf{Overall Usability criteria met 17/42: 40\%}.
+In July of 2013, Michael R. Crusoe (MRC) was hired in in C. Titus
+Brown's (CTB) Laboratory of Genomics, Evolution, and Development at
+Michigan State University.  This brief recounts MRC's experience so
+far in the lab as an engineer and budding researcher, including his
+assessment of the group's main body of code; CTB's reaction and
+engagement with the resulting issues; and a collaborative discussion
+of how best to prioritize and pace infrastructure work, research work,
+and the associated reduction (or accumulation) of technical debt.
 
-"Within Sustainability \& Maintainability the criteria and percent fulfilled are:
-Identity (3/7: 43\%), Copyright (2/6: 33\%), Licensing (4/4: 100\%), Governance
-(0/2: 0\%), Community (2/11: 18\%), Accessibility (4/11: 36\%), Testability (3/17:
-18\%), Portability (7/11: 64\%), Supportability (7/19: 37\%), Analysability (6/16:
-38\%), Changeability (4/10: 40\%), Evolvability (0/3: 0\%), Interoperability (1/2:
-50\%). \textbf{Overall Sustainability \& Maintainability criteria met: 43/119:
-36\%}.
+The GED lab is in a phase of tool building, and the main body of code
+is the khmer suite of nucleotide sequence analysis tools [cite], for
+which MRC is now responsible.  This code is primarily aimed at the
+``Big Data'' problem of efficiently preprocessing very large amounts
+of data being produced by sequencing machines that have become
+available in the last five years.  It is now four years old and the
+basis for a published paper, a PhD thesis, an invited book chapter,
+and three submitted preprints, as well as about five papers in various
+stages of development.  khmer grew out of specific analysis needs, and
+was developed primarily on startup funding and as part of a USDA
+grant.  Its development has led to at least two additional grants,
+including the NIH BIG DATA grant that now supports MRC.  Over its
+lifetime khmer has had 13 different contributors, seven of which are
+currently active.  khmer is largely written in C++ with a thin,
+hand-coded Python wrapper; the unit and functional tests are entirely
+written in Python.  (diagram@@),
 
-"\textbf{Overall fulfillment of criteria: 60/161 = 37\%}. (N/As are ignored for the
-purposes of these tallies)."
+\paragraph{Dramatis personae:}
+CTB's background includes about 20 years of research software
+development, starting from his work on the Avida project (@@wikipedia
+page; 1993 Avida ALIFE paper).  In addition to research software, he
+participated in a number of small open source projects, largely in
+Python; from 2004-2008 his primary software development focus was on
+testing, when he created several testing tools.  However, his PhD is
+in developmental biology and his research focus has always been on the
+intersection of domain-specific problems and effective open source
+programming.
 
-The low fulfillment of the SSI's criteria is slightly embarrassing for the group
-as Titus is collaborator and co-author with SSI, quotes from him are featured
-in case study presentations [cite], and he is cited as someone who is doing
-things the correct way [recomputation manifesto citation]. This is sort of the
-point though: the goals were valued and so resources were gathered [cite R01
-blog post] and used to address these issues. Making significant progress towards
-these ends isn't merely a matter of budgets and hiring: even with a full time hybrid
-software engineer/bioinformatician on the team it is not straightforward to see
-the best way to prioritize the infrastructure work let alone weave it between
-the research work and any unplanned work.
+MRC's background includes computer systems engineering, free and
+open-source systems, and microbiology; this combined with his prior
+experience as a user of the khmer suite gave him plenty of standing to
+generate opinions about how to implement CTB's goal of ``better
+science through superior software.''  [cite]
 
-Our guiding principle, as eloquently put by Michael's first mentor, is "What is
-best for science?" /cite{Nagy2007} The (re)usability of khmer suite by others
-and the group's own ability to continue to extend and innovate with the codebase
-are two concrete areas of current concern. On the usability front the most
-pressing issue is the lack of versioned releases and the fragility of the
-complicated build procedure due to the mixture of C++, C, and Python. As for the
-codebase itself there is an existing body of tests (as artifacts of "stupidity
-driven testing" /cite{Brown2007}) but it is unknown how well they cover the codebase.
-Additionally the there is no automated execution of the existing test as new
-code is committed.
+\paragraph{Project history:}
+The khmer project was started by CTB as part of his research when he
+arrived at MSU in 2008 as an Assistant Professor.  It grew from a very
+small initial core of exact substring counting functionality to
+provide an implementation of a memory-efficient CountMin-Sketch data
+structure (manuscript in preparation); a sequence assembly graph
+implementation using Bloom filters \cite{kmer-percolation}; and an
+implementation of a novel algorithm for lossy compression of data
+structure \cite{diginorm}.  Its estimated user base is in the 100s,
+and it is currently being extended in a number of ways (see below).
+khmer started out under git version control and was developed using
+``stupidity-driven testing (SDD)'' a term coined by CTB in which test
+development is primarily driven by the need to prevent regressions to
+previously observed bugs.
 
-Pursuant to these critical needs a versioned release process is being worked out
-and a continuous integration system using Jenkins is being setup to build the
-codebase, run the tests, and measure code coverage among other tasks. Once we
-we have a measurement of how much of the core functionality is not covered by
-automated tests and those deficiencies are fixed we will feel a lot more secure
-that the new work being done in parallel by about six different contributors
-will not silently break existing functionality.
+Throughout the khmer project, there have been a number of conflicting
+development goals: first, khmer serves as a research testbed for the
+development of novel data structures and algorithms; second, khmer
+also provides novel end-user functionality that enables certain types
+of data analysis; and third, we are working to integrate khmer into a
+larger research ecosystem of tools.  This last goal is the hardest
+and requires the most collaborative outreach, because khmer
+primarily provides a set of filters for preprocessing data: the input
+data is generated by upstream research instruments and software
+filters, and khmer's output is fed into downstream research software.
+Therefore, khmer must interact correctly at both a technical and
+scientific level with other software that is completely out of our
+control.
 
-%[dialogue, @CTB, add your own response and Qs]
+Specific plans for khmer's future development include significant
+improvements in its processing efficiency (@eric mcdonald posa
+chapter), the implementation of novel algorithms for scaling (@cite
+infinite assembly/career grant), the implementation of specific novel
+algorithms for data-driven biological discovery (@cite NIH R01),
+integration with existing pipelines and user interfaces (@cite USDA
+grant and R01), and the extension of khmer as a general research
+platform for rapid exploratory development of novel substring
+approaches to biological data analysis.
 
-MRC: Before the evaluation was started, how mature did you think khmer was as a
-project?
+In sum, we plan to optimize and scale khmer, add specific new
+functionality, and integrate it with other software, all while
+preventing software regression and expanding its flexibility for
+as-yet unplanned future research.  These plans are simply impossible
+without some sort of software development process, which (at the time
+of MRC's arrival) could at best be described as ``haphazard.''
 
-CTB: 
+\section{Initial Evaluation and Short-term Plans}
 
-MRC: The work required to nurture a project into one that is more sustainable is
-non-trivial. How do you justify those resources?
+To guide our development of a rational software development process,
+we applied the Software Sustainability Institute's Criteria-based
+assessment checklist [cite] to the khmer project shared the results
+with the community [cite, storify the tweets?]. The summary from that
+report was grim: khmer met 17 of 42 (or 40\%) of of the SSI's criteria
+for Usability, and 43 of 119 (or 36\%) of the criteria for
+Sustainability, for an overall fulfillment of 43 of the 119 items, or
+36\%.
 
-CTB:
+The low fulfillment of the SSI's criteria is slightly embarrassing for
+the group for several reasons: CTB is a collaborator and co-author
+with SSI; quotes from him are featured in case study presentations
+[cite]; he is cited as someone who is doing things the correct way
+[recomputation manifesto citation]; and he regularly criticizes the
+field for poor software process.  This is essentially the point,
+however: because these goals were highly valued within the lab, and
+because the software filled a novel niche, CTB successfully argued for
+resources to address these issues [cite R01 blog post].  Making
+significant progress towards these ends isn't merely a matter of
+budgets and hiring: even with a full time hybrid software
+engineer/bioinformatician on the team it is not straightforward to
+prioritize infrastructure work, let alone navigate between the core
+research work, user support, community engagement, and collaborations.
 
-MRC: What particular challenges do you think life scientists face in making the
-software artifacts of the research process reusable and sustainable?
+Our guiding principle, as eloquently put by MRC's first mentor, is
+``What is best for science?'' /cite{Nagy2007}. The (re)usability of
+khmer suite by others and the group's own ability to continue to
+extend and innovate with the codebase are two concrete areas of
+concern. On the usability front the most pressing issue is the
+lack of versioned releases and the fragility of the complicated build
+procedure due to a mixture of C++, C, and Python.  There is an
+existing body of tests but we do not know how well they cover the C++
+code.  Moreover, there is no regular continuous integration (automated
+extension of the existing tests) as code is committed.
 
-CTB:
+We are working towards a versioned release process and we are setting
+up a continuous integration system using Jenkins.  This system already
+builds the codebase and runs the test; soon it will measure and report
+statement coverage of both Python and C++ code.  Once we we have a
+measurement of how much of the core functionality is not covered by
+automated tests, we will fix those deficiencies and be able to consider
+more ambitious refactoring.
 
-% do we want to talk about the github flow? I think the continuous visibility
-% aids us tremendously
+\section{Medium-term Plans}
+
+Adopting github pull.
+
+Protocol and pipeline tests / integration tests.
+
+Performance regressions.
+
+Cultural challenges.
+
+\section{Persistent Challenges in Research Software Development}
+
+Showing value of process: what does this all add?
+
+Appropriate level of effort for testing.
+
+\section{A brief dialogue}
+
+MRC: Before the evaluation was started, how mature did you think khmer
+was as a project?
+
+CTB: Early adolescence.  We'd demonstrated scientific value, and,
+between the automated tests and the version control, I felt that we
+were in the 99th percentile of bioinformatics codebases - yes, it's a
+nice, low bar.  However, I knew the software was not as robust as it
+needed to be to support continual incremental development and
+refactoring, especially by new developers.  I knew much more work
+needed to be done on the testing, in particular.
+
+MRC: The work required to nurture a project into one that is more
+sustainable is non-trivial. How do you justify those resources?
+
+CTB: I haven't entirely figured that out.  The hope is that we can
+adapt and innovate faster because we are working off of a more
+stable code base.  So far, so good.  But can we scale this to a bigger
+group of developers?  I don't know.
+
+MRC: What particular challenges do you think life scientists face in
+making the software artifacts of the research process reusable and
+sustainable?
+
+CTB: The two primary challenges are cultural (which was expected) and
+technical (which was unexpected).  By cultural, I mean that there is
+virtually no culture of computational reproducibility or software
+development in biology, which makes it hard to discuss much less
+justify.  Technically, the infrastructure and tools for enabling
+reproducibility are still quite young and do not fit the needs of
+subdomains terribly well.  For example, I thought that other fields
+would have tools for provenance and workflow tracking that we could
+easily adapt; this is simply not the case.  In fact, our effective set
+of tools has emerged from open source and data science work, including
+the excellent Python and GitHub communities, IPython Notebook, and
+cloud computing infrastructure.
+
+MRC: If you could change one thing about the project process from the
+past, what would it be?
+
+CTB: With hindsight, I would place greater emphasis on putting some of
+the ``trivial'' little scripts we use for data manipulation under test
+and documentation.  I've had several experiences where bugs in those
+simple scripts have caused days or weeks of stress, and the lack of
+good documentation for these scripts has been by far the biggest
+complaint of users.
+
+MRC: What has been the most challenging aspect of the project, from a
+process perspective?
+
+CTB: Choosing how to allocate finite time to development, testing,
+communication, fund-raising, and infrastructure -- essentially what
+every startup goes through -- but in a background of blank
+incomprehension or outright negativity from most of my colleagues
+and administrators.
+
+MRC: What has been the most useful change since my arrival?
+
+CTB: I expect the adoption of ``github flow'' (@cite) to have the biggest
+positive long-term impact; it really helps with visibility and discussion
+of features, and it has already helped train new contributors in our
+expectations.
 
 %[et cetera]
 
@@ -112,10 +262,15 @@ CTB:
 
 %[funding ack for MRC
 
-\paragraph{Acknowledgments:}
-MRC has been funded by AFRI Competitive Grant no. 2010-65205-20361 from the USDA NIFA
-and is now funded by the National Human Genome Research Institute of the National Institutes of
-Health under Award Number R01HG007513; both under C. Titus Brown.
+\section*{Acknowledgments}
+
+MRC has been funded by AFRI Competitive Grant no. 2010-65205-20361
+from the USDA NIFA and is now funded by the National Human Genome
+Research Institute of the National Institutes of Health under Award
+Number R01HG007513; both under C. Titus Brown.
+
+\bibliographystyle{cell}
+\bibliography{all}
 
 %\bibliography{wssspe13-ged}
 
