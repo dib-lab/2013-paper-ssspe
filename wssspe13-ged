@@ -1,18 +1,18 @@
-The funny thing about being known for loudly demanding that scientifgic software
+The funny thing about being known for loudly demanding that scientific software
 should be better written and be produced in an open collaborative fashion is
 that one is then going to be publicly held to this higher standard above and
 beyond what one's peers are. In July of 2013 Michael R. Crusoe became the new
-software engineer in C. Titus Brown's Genomics, Evolution, and Development lab at Michigan State University; he is now
-responsibile for the khmer suite of nucleotide sequence analysis tools. The
-khmer suite is now four years old and the basis for N published papers and has
-had N different contributors. 
+software engineer in C. Titus Brown's Genomics, Evolution, and Development lab
+at Michigan State University; he is now responsible for the khmer suite of
+nucleotide sequence analysis tools. The khmer suite is now four years old and
+the basis for N published papers and has had N different contributors. 
 
 Michael's background includes computer systems engineering, free and
 open-source systems, and microbiology; this combined with his prior experience
 as a user of the khmer suite gave him plenty of standing to generate opinions
 about how to implement Titus's goal of "superior science through superior
 software." [cite] To guide this process the Software Sustainability Institute's
-Critera-based assesment checklist [cite] was applied to the project and the
+Criteria-based assessment checklist [cite] was applied to the project and the
 results shared with community [cite, storify the tweets?].
 
 [summary of report]
@@ -26,7 +26,7 @@ project?
 
 CTB: 
 
-MRC: The work requried to nuture a project into one that is more sustainable is
+MRC: The work required to nurture a project into one that is more sustainable is
 non-trivial. How do you justify those resources?
 
 CTB:
