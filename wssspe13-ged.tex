@@ -1,19 +1,40 @@
 \documentclass{article}
+\bibliographystyle{plain}
 \begin{document}
+
+\begin{flushleft}
+{\Large \textbf{some clever title: the lived experience of walking the
+sustainable scientific software development walk}}
+\\
+Michael R. Crusoe$^{2}$, and
+C. Titus Brown$^{1,2\ast}$
+\\
+\bf{1} Computer Science and Engineering, Michigan State University, East Lansing, MI, USA
+\\
+\bf{2} Microbiology and Molecular Genetics, Michigan State University, East Lansing, MI, USA
+$\ast$ E-mail: ctb@msu.edu
+\end{flushleft}
+
 
 The funny thing about being known for loudly demanding that scientific software
 should be better written and be produced in an open collaborative fashion is
 that one is then going to be publicly held to this higher standard above and
 beyond what one's peers are. In July of 2013 Michael R. Crusoe became the new
 software engineer in C. Titus Brown's Genomics, Evolution, and Development lab
-at Michigan State University; he is now responsible for the khmer suite of
-nucleotide sequence analysis tools. The khmer suite is now four years old and
-the basis for N published papers and has had N different contributors. 
+at Michigan State University. This brief recounts his experience so far in the
+GED lab as an engineer and budding researcher including his assessment of the group's
+main body of code, and a discussion of how best to prioritize and pace the
+required infrastructure work alongside the research work and whatever unplanned
+work that happens. 
 
-Michael's background includes computer systems engineering, free and
-open-source systems, and microbiology; this combined with his prior experience
-as a user of the khmer suite gave him plenty of standing to generate opinions
-about how to implement Titus's goal of "better science through superior
+The GED lab is in a phase of tool building. The main body of code, for
+which Michael is now responsible for, is the khmer suite of nucleotide sequence
+analysis tools [cite]. It is now four years old and the basis for N
+published papers and has had 13 different contributors seven of which are
+currently active.  Michael's background includes computer systems engineering,
+free and open-source systems, and microbiology; this combined with his prior
+experience as a user of the khmer suite gave him plenty of standing to generate
+opinions about how to implement Titus's goal of "better science through superior
 software." [cite] To guide this process the Software Sustainability Institute's
 Criteria-based assessment checklist [cite] was applied to the project and the
 results shared with community [cite, storify the tweets?].
@@ -40,10 +61,30 @@ as Titus is collaborator and co-author with SSI, quotes from him are featured
 in case study presentations [cite], and he is cited as someone who is doing
 things the correct way [recomputation manifesto citation]. This is sort of the
 point though: the goals were valued and so resources were gathered [cite R01
-blog post] and used to address these issues. Together we have identified the
-most critical unmet criteria (roughly: test coverage, continuous integration, and an
-actual versioned source release) and are working towards a 1.0 release to be the
-foundation for both further research and refinement.
+blog post] and used to address these issues. Making significant progress towards
+these ends isn't merely a matter of budgets and hiring: even with a full time hybrid
+software engineer/bioinformatician on the team it is not straightforward to see
+the best way to prioritize the infrastructure work let alone weave it between
+the research work and any unplanned work.
+
+Our guiding principle, as eloquently put by Michael's first mentor, is "What is
+best for science?" /cite{Nagy2007} The (re)usability of khmer suite by others
+and the group's own ability to continue to extend and innovate with the codebase
+are two concrete areas of current concern. On the usability front the most
+pressing issue is the lack of versioned releases and the fragility of the
+complicated build procedure due to the mixture of C++, C, and Python. As for the
+codebase itself there is an existing body of tests (as artifacts of "stupidity
+driven testing" /cite{Brown2007}) but it is unknown how well they cover the codebase.
+Additionally the there is no automated execution of the existing test as new
+code is committed.
+
+Pursuant to these critical needs a versioned release process is being worked out
+and a continuous integration system using Jenkins is being setup to build the
+codebase, run the tests, and measure code coverage among other tasks. Once we
+we have a measurement of how much of the core functionality is not covered by
+automated tests and those deficiencies are fixed we will feel a lot more secure
+that the new work being done in parallel by about six different contributors
+will not silently break existing functionality.
 
 %[dialogue, @CTB, add your own response and Qs]
 
@@ -57,32 +98,41 @@ non-trivial. How do you justify those resources?
 
 CTB:
 
-MRC: What particular challenges do you think scientists face in making the
+MRC: What particular challenges do you think life scientists face in making the
 software artifacts of the research process reusable and sustainable?
 
 CTB:
+
+% do we want to talk about the github flow? I think the continuous visibility
+% aids us tremendously
 
 %[et cetera]
 
 %[Summary & conclusion]
 
-%[funding ack for MRC]
+%[funding ack for MRC
 
-%[Citations]
+\paragraph{Acknowledgments:}
+MRC has been funded by AFRI Competitive Grant no. 2010-65205-20361 from the USDA NIFA
+and is now funded by the National Human Genome Research Institute of the National Institutes of
+Health under Award Number R01HG007513; both under C. Titus Brown.
 
-"Criteria-based assessment of the khmer suite" http://goo.gl/MZGGhc 
+%\bibliography{wssspe13-ged}
 
-"Open Call for Projects" http://www.software.ac.uk/open-call
+%"Criteria-based assessment of the khmer suite" http://goo.gl/MZGGhc 
 
-"Institute Case Studies: From Consultancy Projects to Case Studies" http://www.software.ac.uk/attach/CaseStudies.pdf
+%"Open Call for Projects" http://www.software.ac.uk/open-call
 
-Wilson, G., Aruliah, D.A.,Titus Brown, C.T., Chue Hong, N. P., Davis, M., Guy, R. T.,
-Haddock, S.H.D, Huff, K., Mitchell, I.M., Plumbley, M., Waugh, B., White, E. P.
-and Wilson, P. Best Practices for Scientific Computing. CoRR, arXiv:1210.0530
-[cs.MS], 2012.
+%"Institute Case Studies: From Consultancy Projects to Case Studies" http://www.software.ac.uk/attach/CaseStudies.pdf
 
-"The five stars of research software" http://www.software.ac.uk/blog/2013-04-09-five-stars-research-software
+%Wilson, G., Aruliah, D.A.,Titus Brown, C.T., Chue Hong, N. P., Davis, M., Guy, R. T., Haddock, S.H.D, Huff, K., Mitchell, I.M., Plumbley, M., Waugh, B., White, E. P. and Wilson, P. Best Practices for Scientific Computing. CoRR, arXiv:1210.0530 [cs.MS], 2012.
 
-"The Recomputation Manifesto" http://www.software.ac.uk/blog/2013-07-09-recomputation-manifesto
+%"The five stars of research software" http://www.software.ac.uk/blog/2013-04-09-five-stars-research-software
+
+%"The Recomputation Manifesto" http://www.software.ac.uk/blog/2013-07-09-recomputation-manifesto
+
+%"Issues ged-lab/khmer" https://github.com/ged-lab/khmer/issues?direction=desc&milestone=1&page=1&sort=updated&state=open
+
+%'"Stupidity Driven Testing" and PyCon \'07' http://ivory.idyll.org/blog/stupidity-driven-testing.html
 
 \end{document}
