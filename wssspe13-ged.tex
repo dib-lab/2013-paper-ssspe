@@ -93,7 +93,7 @@ implementation of a novel algorithm for lossy compression of data
 structure \cite{diginorm}.  Its estimated user base is in the 100s,
 and it is currently being extended in a number of ways (see below).
 khmer started out under git version control and was developed using
-``stupidity-driven testing (SDD)'' a term coined by CTB in which test
+``stupidity-driven development (SDD)'' a term coined by CTB in which test
 development is primarily driven by the need to prevent regressions to
 previously observed bugs.
 
@@ -175,19 +175,81 @@ more ambitious refactoring.
 
 \section{Medium-term Plans}
 
-Adopting github pull.
+We hope to release a ``1.0'' version in April 2014, and during this period
+we plan to adopt a number of new practices.
 
-Protocol and pipeline tests / integration tests.
+First and foremost, we will move to a ``pull request'' model for
+contributions, also known as ``github flow,'' in which both small and
+large changes are started on branches and then discussed, debated, and
+updated in a persistent conversational form using GitHub's Pull
+Request functions.  This can be used to educate contributors, require
+new members of the lab to adopt good coding practice, and (perhaps
+most importantly) enforce code review prior to merge.  Preliminary
+experience suggest that this model is easy for long-time software
+developers to adopt.
 
-Performance regressions.
+Secondly, we are working on a series of integration tests in which
+khmer's functionality is tested in concert with a number of externally
+developed packages.  This serves both an inward facing goal, where we
+can verify that our software plays correctly with other codebases, and
+an outward facing goal, where we can essentially place other codebases
+on which we depend ``under test.''  While this latter goal might seem
+a bit passive aggressive, in practice it is useful because so few
+bioinformatics packages have any automated tests whatsoever.  
 
-Cultural challenges.
+One additional challenge that we could address by instrumenting the
+integration tests is to detect performance regressions in the khmer
+code base.  Because khmer may run for hours, days, or weeks on very
+large data sets with properties that we cannot yet model accurately,
+running khmer on real data is the only way to observe the consequences
+of code changes on performance.
+
+Finally, we want to put in place a set of explicit citation requests.
+We do not know how to measure and report khmer usage, although
+altmetrics is beginning to provide measures of online impact.
+Conservatively, paper citations seem likely to be the most practical
+and realizable way of defining khmer's impact on science, and so we
+will lay out distinct guidelines for appropriately citing algorithms,
+software, and protocols.
 
 \section{Persistent Challenges in Research Software Development}
 
-Showing value of process: what does this all add?
+In the long term, we expect to face three major challenges in continuing
+to develop khmer.
 
-Appropriate level of effort for testing.
+First, we need to show the value of the process, so that we and others
+can convince colleagues and funding agencies that software development
+processes should be a first-class participant in publication and
+funding considerations.  This will almost certainly have to be done
+by doing a better (faster, higher quality) job of tackling core
+scientific and biological questions, and will need to be measured
+in publications and citations.
+
+Second, we must continually reevaluate how much and where to refactor
+and test.  In the face of changing input data (due to instrument and
+experimental protocol changes), different expectations for output
+(bioinformaticians invent a new format every 5 minutes on average),
+competing algorithms with poor replicability, etc., we believe we
+could spend 100\% of our time on quality control without developing
+anything truly new.  However there is little or no reward in academia
+for merely continuing to produce functioning software: software
+maintenance grants are few and far between.  So our core software
+maintenance efforts must instead be directed at enabling us to agilely
+tackle research problems, i.e. focus on issues that we don't yet
+understand or for which we don't have much intuition.  While this may
+seem like a standard software engineering problem, we believe that
+the nature of pure research may lead to additional challenges here.
+
+Third, we face systemic and severe cultural challenges in terms of
+recruiting software developers and researchers.  Inevitably new lab
+members are undertrained in most of what we do, including testing,
+version control, good computational hygiene, data science, and/or the
+domain of biology.  These are a lot of subjects to train new people
+in, and we have yet to establish an effective lab culture.  On the
+converse side, of course, we expect lab graduates to be increasingly
+employable in both academia and biotech; moreover, the lab reputation
+of caring about such things has started to attract people who are
+already somewhat better trained.
 
 \section{A brief dialogue}
 
@@ -222,7 +284,7 @@ justify.  Technically, the infrastructure and tools for enabling
 reproducibility are still quite young and do not fit the needs of
 subdomains terribly well.  For example, I thought that other fields
 would have tools for provenance and workflow tracking that we could
-easily adapt; this is simply not the case.  In fact, our effective set
+easily adapt; this is simply not the case.  In fact, our most effective set
 of tools has emerged from open source and data science work, including
 the excellent Python and GitHub communities, IPython Notebook, and
 cloud computing infrastructure.
