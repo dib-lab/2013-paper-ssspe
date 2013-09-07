@@ -3,13 +3,11 @@
 \usepackage{times}
 \usepackage{graphicx}
 \usepackage[small,compact]{titlesec}
+\usepackage{url}
 
 \pagestyle{empty}
 
-\title{BIGDATA: Small: DA: DCM: Low-memory Streaming Prefilters for
-Biological Sequencing Data}
-\author{C. Titus Brown}
-\date{July 2012}
+\date{September 2013}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.70ex}
@@ -52,7 +50,7 @@ of how best to prioritize and pace infrastructure work, research work,
 and the associated reduction (or accumulation) of technical debt.
 
 The GED lab is in a phase of tool building, and the main body of code
-is the khmer suite of nucleotide sequence analysis tools [cite], for
+is the khmer suite of nucleotide sequence analysis tools \cite{khmer}, for
 which MRC is now responsible.  This code is primarily aimed at the
 ``Big Data'' problem of efficiently preprocessing very large amounts
 of data being produced by sequencing machines that have become
@@ -66,12 +64,11 @@ including the NIH BIG DATA grant that now supports MRC.  Over its
 lifetime khmer has had 13 different contributors, seven of which are
 currently active.  khmer is largely written in C++ with a thin,
 hand-coded Python wrapper; the unit and functional tests are entirely
-written in Python.  (diagram@@),
+written in Python.
 
 \paragraph{Dramatis personae:}
 CTB's background includes about 20 years of research software
-development, starting from his work on the Avida project (@@wikipedia
-page; 1993 Avida ALIFE paper).  In addition to research software, he
+development, starting from his work on the Avida project (\cite{wiki:avida} 1993 Avida ALIFE paper).  In addition to research software, he
 participated in a number of small open source projects, largely in
 Python; from 2004-2008 his primary software development focus was on
 testing, when he created several testing tools.  However, his PhD is
