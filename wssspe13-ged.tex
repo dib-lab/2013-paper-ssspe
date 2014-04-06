@@ -32,8 +32,8 @@ C. Titus Brown$^{2,1\ast}$\\
   full-time developer (MRC), as well as several graduate students and
   a professor (CTB) who contribute regularly to research features.
   Here we describe our efforts to bring better design, testing, and
-  more open development to the khmer software project (which has
-  just released v1.0.)}
+  more open development to the khmer software project, which has
+  just released v1.0.}
 
 
 \setlength{\parindent}{0pt}
@@ -52,11 +52,11 @@ new and different biological problems.
 The khmer software was born from a need to more scalably analyze short
 (20-30 character) words, or ``k-mers'', in large DNA sequencing data
 sets. The use of k-mers in DNA sequence analysis is common because
-they can be easily hashed, counted, and compared within and between
+they can be easily hashed, counted and compared within and between
 data sets.  However, as data sets have grown in size, approaches to
 analyzing k-mers have fallen behind the memory and compute scaling
-curves.  khmer provides several research and production functions:
-approximate k-mer counting using a CountMin Sketch
+curves.  khmer provides several research and production functions,
+including approximate k-mer counting using a CountMin Sketch
 \cite{Zhang2013}, an implementation of a compressible k-mer
 connectivity graph \cite{Pell2012}, and a streaming lossy compression
 algorithm for large data sets \cite{Brown2012}.
@@ -131,14 +131,13 @@ challenges.
 
 \end{itemize}
 
-Collectively these challenges made us believe that khmer software
+Collectively, these challenges made us believe that khmer software
 development was not sustainable: without significant investment in
-software engineering then either 1) research development would falter in the
-face of increasingly high maintenance demands, or 2) khmer's stable
-functionality would start to deteriorate, or 3) both.  To address these
+software engineering, either research development would falter in the
+face of increasingly high maintenance demands, or khmer's stable
+functionality would start to deteriorate, or both.  To address these
 challenges, CTB secured three years of NIH funding through the 2012
-BIG DATA competition, and hired a software developer who also had a biology
-education and bioinformatics experience, MRC.
+BIG DATA competition, and hired a software developer, MRC.
 
 %Specific plans for khmer's future development include significant
 %improvements in its processing efficiency
@@ -158,9 +157,9 @@ we applied the Software Sustainability Institute's Criteria-based
 assessment checklist \cite{SSI-eval-guide} to the khmer project in
 September 2013 and shared the results with the community
 \cite{khmer-assessment}. The summary from that report was grim: khmer
-met 19 of 44 (or 43\%) of of the SSI's criteria for Usability, and 43
-of 118 (or 36\%) of the criteria for Sustainability, for an overall
-fulfillment of 62 of the 163 items, or 38\%.
+met 17 of 42 (or 40\%) of of the SSI's criteria for Usability, and 43
+of 119 (or 36\%) of the criteria for Sustainability, for an overall
+fulfillment of 43 of the 119 items, or 36\%.
 
 % @CTB: could @MRC sprinkle in some details about what wasn't met, that
 % is now met by the criteria below? and/or provide a paragraph towards
@@ -197,14 +196,9 @@ research work, user support, community engagement, and collaborations.
 \section{Releasing version 1.0}
 
 On April 1st, 2014, we released khmer 1.0.  While by no means a finished
-product, we believe we are on a much more sustainable development path as khmer
-now meets 69\% of the Software Sustainability Institute's checklist
-\cite{khmer-1.0-assessment}.
-
+product, we believe we are on a much more sustainable development path.
 Version 1.0 contains XXX, YYY, ZZZ.
 Below, we discuss in more detail.
-
-
 
 \subsection{Development standards and semantic versioning}
 
@@ -228,9 +222,9 @@ We also imposed a backwards compatibility requirement on our command
 line scripts.  While we did not want to stabilize the Python or C++
 API because we are actively changing khmer internals, we felt that
 our command line scripts were sufficiently stable to require no
-backwards-incompatible changes on the 1.0 series of releases.
+backwards-incompatible changes on 1.0.
 
-We have therefore committed to {\em semantic versioning}\cite{semver} for the
+We have therefore committed to {\em semantic versioning} for the
 command line scripts that come with khmer.  This imposes a
 three-tiered versioning system: for patch version number changes
 (khmer v1.0.x), only minor bug fixes and documentation updates are
@@ -294,8 +288,8 @@ While code review is an important part of ensuring that only ``good''
 code and feature are included in a project, it is typically very time
 consuming to do systematic code reviews.  In order to scale our
 development process to more contributors while enabling code review,
-we adopted the ``GitHub Flow'' model of code review \cite{GitHubFlow}.
-In this model, changes are developed on an independent branch
+we adopted the ``GitHub Flow'' model of code review (@@citegithub
+flow).  In this model, changes are developed on an independent branch
 of code; this branch of code is linked to the main development
 repository via a ``pull request'', which is an ongoing summary of
 changes together with free text discussion.  When the developer feels
@@ -343,7 +337,7 @@ software are a critical part of our research, and that the researchers
 and developers involved in that effort should be acknowledged
 appropriately in the scientific literature.  This can really only be
 addressed by requiring citation of the relevant software paper, which
-will be updated for every significant version release with contributor
+will be updated for every major version release with contributor
 names.  At the same time, we also believe that our algorithm
 contributions are independently important and should be acknowledged
 by citations.  Hence, the requirement that when our algorithms are
@@ -470,5 +464,4 @@ Number R01HG007513; both under C. Titus Brown.
 %"The five stars of research software" http://www.software.ac.uk/blog/2013-04-09-five-stars-research-software
 
 %"Issues ged-lab/khmer" https://github.com/ged-lab/khmer/issues?direction=desc&milestone=1&page=1&sort=updated&state=open
-
 \end{document}
