@@ -355,7 +355,7 @@ An ongoing concern for khmer is how well our software integrates with
 other packages.  Because khmer primarily consumes the output of
 upstream software, and the output of khmer is then fed into downstream
 software, we need to take into account a larger software ecosystem.
-Unfortuntaely, there are few real data format standards in this area:
+Unfortunately, there are few real data format standards in this area:
 the sequencing companies that generate the source data are notoriously
 quick to change their output formats in arbitrary ways, and developers
 of other packages may introduce format changes intentionally (through
@@ -382,82 +382,127 @@ command-line parameter handling were discovered in the 48 hours before
 release; these bugs generally had to do with common command line cases
 that were not readily testable at the unit and functional level.
 
-\section{Persistent Challenges in Research Software Development}
+We are also maintaining our acceptance tests for Ubuntu 12.04, a Long
+Term Support version of Linux that will be supported through 2017.
+This should further decrease maintenance efforts for our acceptance
+tests.
 
-@CTB review and update.
+\section{Persistent Challenges in Research Software Development}
 
 In the long term, we expect to face three major challenges in continuing
 to develop khmer.
 
-First, we need to show the value of the process, so that we and others
-can convince colleagues and funding agencies that software development
-processes should be a first-class participant in publication and
-funding considerations.  This will almost certainly have to be done
-by doing a better (faster, higher quality) job of tackling core
-scientific and biological questions, and will need to be measured
-in publications and citations.
+First, we need to secure continued funding for khmer software
+development.  This will depend primarily on producing novel research,
+but a substantial part of our research is tied to khmer.  If we can
+leverage our good software engineering practices to accelerate our own
+research while also providing value to the larger community --
+``better science through superior software''-- then arguments for more
+funding will be much easier than if we simply develop khmer for
+others to use.  This is less satisfying than getting funding for maintenance,
+but is a more plausible path forward than relying on maintenance grants.
 
-Second, we must continually reevaluate how much and where to refactor
-and test.  In the face of changing input data (due to instrument and
+Second, we must balance maintenance activites with novel research
+features.  In the face of changing input data (due to instrument and
 experimental protocol changes), different expectations for output
 (bioinformaticians invent a new format every 5 minutes on average),
-competing algorithms with poor replicability, etc., we believe we
-could spend 100\% of our time on quality control without developing
-anything truly new.  However there is little or no reward in academia
-for merely continuing to produce functioning software: software
-maintenance grants are few and far between.  So our core software
-maintenance efforts must instead be directed at enabling us to agilely
-tackle research problems, i.e. focus on issues that we don't yet
-understand or for which we don't have much intuition.  While this may
-seem like a standard software engineering problem, we believe that
-the nature of pure research may lead to additional challenges here.
+competing algorithms with poor replicability, etc., we could spend
+100\% of our time on quality control without developing anything new.
+Maintenance could be a valuable community service but would not address
+as many student, postdoc, or faculty career incentives as doing new
+research.  Equally, expanding our research alone would result in less
+reliable software.  Much of our process is dedicated to walking the
+line between maintenance and novel research.
 
-Third, we face systemic and severe cultural challenges in terms of
-recruiting software developers and researchers.  Inevitably new lab
-members are undertrained in most of what we do, including testing,
-version control, good computational hygiene, data science, and/or the
-domain of biology.  These are a lot of subjects to train new people
-in, and we have yet to establish an effective lab culture.  On the
-converse side, of course, we expect lab graduates to be increasingly
-employable in both academia and biotech; moreover, the lab reputation
-of caring about such things has started to attract people who are
-already somewhat better trained.
+Third, we face many challenges in terms of recruiting software
+developers and researchers.  Inevitably new lab members are
+undertrained in most of what we do, including testing, version
+control, good computational hygiene, data science, bioinformatics
+and/or the domain of biology.  These are a lot of subjects to train
+new people in, and we have yet to establish an effective lab culture.
+On the converse side, of course, we expect lab graduates to be
+increasingly employable in both academia and biotech; moreover, the
+lab reputation of caring about good software has started to attract
+people with deeper training.
 
-\section{A brief dialogue}
+\section{Concluding thoughts}
 
-@CTB refactor into discussion.
+While we are still at the early stages of the experiment, we believe
+we can reach some conclusions about which parts of our process have
+been most important.  While these are anecdotes, most of our process
+is already standard in both industry and open source projects, so we
+would argue that our anecdotes bear out what is already known outside
+of scientific research.
 
-MRC: What particular challenges do you think life scientists face in
-making the software artifacts of the research process reusable and
-sustainable?
+First, we believe that version control and significant automated
+testing have both been incredibly important and are absolutely
+necessary for any sustained software development effort.  Without
+version control, having multiple developers work on the same project
+would have been effectively impossible: all our time would have been
+spent on coordination issues.  Even with a single developer (CTB),
+khmer development benefitted from version history and source code
+comparison across versions.
 
-CTB: The two primary challenges are cultural (which was expected) and
-technical (which was unexpected).  By cultural, I mean that there is
-virtually no culture of computational reproducibility or software
-development in biology, which makes it hard to discuss much less
-justify.  Technically, the infrastructure and tools for enabling
-reproducibility are still quite young and do not fit the needs of
-subdomains terribly well.  For example, I thought that other fields
-would have tools for provenance and workflow tracking that we could
-easily adapt; this is simply not the case.  In fact, our most effective set
-of tools has emerged from open source and data science work, including
-the excellent Python and GitHub communities, IPython Notebook, and
-cloud computing infrastructure.
+Without automated testing, we would almost certainly have hesitated to
+make many changes, for fear of introducing regressions; this is
+especially important given the variance in software engineering
+expertise.  By insisting that new code have tests associated with it,
+we also ensured that other developers would avoid unintentionally breaking
+new code they were not yet familiar with.
+
+Second, acceptance testing has proven quite valuable for 1.0.  Prior
+to committing to a stable command-line API, acceptance testing would
+most likely have been a waste of time: maintenance effort would have
+been needed to keep the scripts and tutorials working well together.
+However, now that we have committed to a stable command-line API, if
+the acceptance tests break it will be a bug, so there should be little
+maintenance burden.  By committing to an Ubuntu Long Term Support
+release for running the acceptance tests, we can further control our
+maintenance costs.
+
+Third, as we expand our development team and encourage contributions
+from people external to our lab, automated ways of evaluating software
+quality become extremely useful.  Here, continuous integration, style
+checks, and code coverage analysis are particularly important for
+maintaining project stability.  A formal code review by an experienced
+developer is the enforcement mechanism that ensures that basic requirements
+are met.
+
+One important caveat is that we don't yet know how well any of this is
+going to work!  Our chief goals are to enable further research with
+khmer and maintain existing functionality, all while our
+developer base expands and/or turns over. We hope and believe that our
+approaches will let us do this, but we need a longer baseline of
+observations to find out.
+
+
+%CTB: The two primary challenges are cultural (which was expected) and
+%technical (which was unexpected).  By cultural, I mean that there is
+%virtually no culture of computational reproducibility or software
+%development in biology, which makes it hard to discuss much less
+%justify.  Technically, the infrastructure and tools for enabling
+%reproducibility are still quite young and do not fit the needs of
+%subdomains terribly well.  For example, I thought that other fields
+%would have tools for provenance and workflow tracking that we could
+%easily adapt; this is simply not the case.  In fact, our most effective set
+%of tools has emerged from open source and data science work, including
+%the excellent Python and GitHub communities, IPython Notebook, and
+%cloud computing infrastructure.
 
 %[et cetera]
 
 %[Summary & conclusion]
 
-@talk about importance of software; novelty squared.
+% @talk about importance of software; novelty squared.
 
-future plans?
+% future plans?
 
 \section*{Acknowledgments}
 
 MRC has been funded by AFRI Competitive Grant no. 2010-65205-20361
 from the USDA NIFA and is now funded by the National Human Genome
 Research Institute of the National Institutes of Health under Award
-Number R01HG007513; both under C. Titus Brown.
+Number R01HG007513; both to C. Titus Brown.  @@lex
 
 \bibliographystyle{plain}
 \bibliography{wssspe13-ged}
