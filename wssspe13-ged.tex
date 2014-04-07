@@ -33,7 +33,7 @@ C. Titus Brown$^{2,1\ast}$\\
   a professor (CTB) who contribute regularly to research features.
   Here we describe our efforts to bring better design, testing, and
   more open development to the khmer software project (which has
-  just released v1.0.)}
+  just released v1.0).}
 
 
 \setlength{\parindent}{0pt}
@@ -87,7 +87,7 @@ software project.
 khmer grew out of specific analysis needs, and was developed primarily
 on startup funding and as part of a USDA grant.  Its development has
 led to at least two additional grants, including the NIH BIG DATA
-grant that now supports MRC.\footnote{@@@link}  Over its lifetime
+grant that now supports MRC \cite{brown2012bigdata}.  Over its lifetime
 khmer has had 15 different contributors, with five currently active.
 The code consists of approximately 12.2k lines of C and C++ code, with
 scripts and tests written in Python (6.6k lines of code).
@@ -200,15 +200,15 @@ product, we believe we are on a much more sustainable development path as khmer
 now meets 69\% of the Software Sustainability Institute's checklist
 \cite{khmer-1.0-assessment}.
 
-Version 1.0 contains XXX, YYY, ZZZ.
-Below, we discuss in more detail.
-
-
+For version 1.0, we added continuous integration, semantic versioning,
+acceptance testing, development standards, code coverage analysis,
+explicit citation information, and code review, among other process
+alterations and features.  Below, we discuss these in more detail.
 
 \subsection{Development standards and semantic versioning}
 
 We instituted a number of development standards, including coding
-styles and versioninig requirements for backwards compatibility.  Our
+styles and versioning requirements for backwards compatibility.  Our
 goal was to have explicit written requirements that would inform new
 contributors of our expectations, whether they have significant prior
 programming experience or not.
@@ -333,7 +333,7 @@ To clarify and regularize citation practices, we added explicit
 citation guidelines in two places: first, in the CITATION file at the
 top of the distribution, and second, in the output from every script.
 We now ask that users cite not only the software itself (via a
-software paper @cite), but also the algorithm papers relevant to the
+software paper), but also the algorithm papers relevant to the
 software features being used.
 
 While we worry about appearing to be ``citation greedy,'' we also
@@ -439,7 +439,7 @@ necessary for any sustained software development effort.  Without
 version control, having multiple developers work on the same project
 would have been effectively impossible: all our time would have been
 spent on coordination issues.  Even with a single developer (CTB),
-khmer development benefitted from version history and source code
+khmer development benefited from version history and source code
 comparison across versions.
 
 Without automated testing, we would almost certainly have hesitated to
@@ -501,7 +501,8 @@ observations to find out.
 MRC has been funded by AFRI Competitive Grant no. 2010-65205-20361
 from the USDA NIFA and is now funded by the National Human Genome
 Research Institute of the National Institutes of Health under Award
-Number R01HG007513; both to C. Titus Brown.  @@lex
+Number R01HG007513; both to C. Titus Brown.  We thank Dr. Lex
+Nederbragt for helpful comments on early drafts.
 
 \bibliographystyle{plain}
 \bibliography{wssspe13-ged}

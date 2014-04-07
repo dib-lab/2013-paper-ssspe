@@ -1,9 +1,9 @@
 all: wssspe13-ged.pdf
 
-wssspe13-ged.pdf: wssspe13-ged.tex
-	pdflatex wssspe13-ged.tex
+wssspe13-ged.pdf: wssspe13-ged.tex wssspe13-ged.bib
 	pdflatex wssspe13-ged.tex
 	bibtex wssspe13-ged
+	pdflatex wssspe13-ged.tex
 	pdflatex wssspe13-ged.tex
 
 clean:
