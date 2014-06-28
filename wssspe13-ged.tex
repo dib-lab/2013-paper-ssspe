@@ -45,7 +45,7 @@
   development processes in a small biology lab.}
 
 \author{Michael R. Crusoe$^{1}$\\
-C. Titus Brown$^{2,1\ast}$\\
+C. Titus Brown$^{1,2\ast}$\\
 \small \bf{1} Microbiology and Molecular Genetics,\\
 \small \bf{2} Computer Science and Engineering,\\
 \small Michigan State University, East Lansing, MI, USA\\
@@ -55,18 +55,18 @@ C. Titus Brown$^{2,1\ast}$\\
 \maketitle
 \thispagestyle{firststyle}
 
-\abstract{The khmer software project\cite{khmer} implements both research and
-  production functionality for large-scale nucleic-acid sequence analysis.  The
-  project is driven by a small lab with only one
-  full-time developer (MRC), as well as several graduate students and
-  a professor (CTB) who contribute regularly to research features.
-  Here we describe our efforts to bring better design, testing, and
-  more open development to the khmer software project (which has
-  just released version 1.0).}
-
-%% Abstract seems rather terse. The three sentence abstract is rather too short
-%% for a journal publication. Would be helpful to have a couple more sentences
-%% there. Avoid usage of acronyms in abstract. (reviewer B)
+\abstract{The khmer software project provides both
+  research and production functionality for large-scale nucleic-acid
+  sequence analysis.  The software implements several novel data
+  structures and algorithms that perform data pre-filtering for common
+  bioinformatics tasks, including sequence mapping and {\em de novo}
+  assembly. Development is driven by a small lab with one full-time
+  developer (MRC), as well as several graduate students and a
+  professor (CTB) who contribute regularly to research features.  Here
+  we describe our efforts to bring better design, testing, and more
+  open development to the khmer software project (which has just
+  released version 1.1).  The khmer software is developed openly
+  at {\sf http://github.com/ged-lab/khmer/}.}
 
 %% MRC sees the story in this paper as: we measured our sustainability, took
 %% measures to improve it and measured again. Our lives are better for it and
@@ -97,7 +97,7 @@ C. Titus Brown$^{2,1\ast}$\\
 % Hard to judge from the introduction what has been done in the paper.
 % Introduction seems a bit detached from the rest of the paper.
 
-% "Citing the summary report of the WSSSPE1 (arxiv.org/abs/1404.7414) suggested
+%@ "Citing the summary report of the WSSSPE1 (arxiv.org/abs/1404.7414) suggested
 % as it touches many aspects covered in the present paper."
 
 Computational tools for analyzing large volumes of DNA/RNA sequencing data
@@ -108,39 +108,42 @@ many new tools, both for handling data on large scales and to address
 new and different biological problems.
 
 The khmer software was born from a need to more scalably analyze short
-fixed-length (20-30 character) words, or ``k-mers'', in large DNA sequencing data
-sets. The use of k-mers in DNA sequence analysis is common because
-they can be easily hashed, counted, and compared within and between
-data sets.  However, as data sets have grown in size, approaches to
-analyzing k-mers have fallen behind the memory and compute scaling curves. 
-khmer provides several research and production functions:
-approximate k-mer counting using a CountMin Sketch~\cite{Zhang2013},
-an implementation of a compressible k-mer connectivity graph~\cite{Pell2012},
-and a streaming lossy compression algorithm for large data
-sets~\cite{Brown2012}.
+fixed-length (20-30 character) words, or ``k-mers'', in large DNA
+sequencing data sets. The use of k-mers in DNA sequence analysis is
+common because they can be easily hashed, counted, and compared within
+and between data sets.  However, as data sets have grown in size,
+approaches to analyzing k-mers have fallen behind the memory and
+compute scaling curves.  khmer provides several functions: approximate
+k-mer counting using a CountMin Sketch~\cite{Zhang2013}, an
+implementation of a compressible k-mer connectivity
+graph~\cite{Pell2012}, and a streaming lossy compression algorithm for
+large data sets~\cite{Brown2012}.  These were first implemented as a
+part of bioinformatics research publications, but due to their broad
+utility have now been used in a number of data analysis publications
+(cite cite cite).
 
-We have developed the khmer software as an open source project since
-the beginning: the software is under the BSD license, and we use
-GitHub for development, code review, release tagging, and other
-development activities.  We make a wide variety of tutorials and
-user documentation available, as part of the khmer project itself and
-also as part of a range of workshops.  Adoption of khmer is driven not only by
-its utility in addressing otherwise difficult or intractable problems,
-but also by CTB's blogging, research preprints and publications, and
-presentations.  We now estimate that we have over 500 users of the
-khmer software itself, and the algorithms and approaches initially
-implemented in khmer have been adapted to and incorporated in several other
-software packages.
+We developed the khmer software as an open source project since the
+beginning: the software is under the BSD license, and we use GitHub
+for most development activities, including coordinating contributions,
+performing code review, and tagging releases.  We provide a wide
+variety of tutorials and user documentation, both as part of the khmer
+project itself and also as part of a range of workshop material.
+Adoption of khmer is driven not only by its utility in addressing
+otherwise difficult or intractable problems, but also by CTB's
+blogging, research preprints and publications, and presentations.  We
+now estimate that we have over 500 users of the khmer software itself,
+and the algorithms and approaches initially implemented in khmer have
+been adapted to and incorporated in several other software packages.
 % @ctb, what is the 500 user estimate based on?
 % What is the feedback from the users: don’t hear from them; they cite us when it works
 
-Our main challenge in developing khmer has been to build a stable and
-reliable software project while simultaneously supporting an energetic
-research program in bioinformatics.  This has traditionally been hard
-for small scientific labs due to many factors including
-lack of expertise and lack of sustained funding.  Below, we discuss
-our experience in navigating a course towards a sustainable small-lab
-software project.
+The main challenge for us in developing khmer has been to build a
+stable and reliable software project while simultaneously supporting
+an energetic research program in bioinformatics.  This has
+traditionally been hard for small scientific labs due to many factors
+including lack of expertise and lack of sustained funding (@cite).
+Below, we discuss our experience in navigating the challenges in making a
+small-lab software project sustainable.
 
 \section{Background}
 
@@ -159,51 +162,63 @@ State University.  By July of 2013, when MRC started, the software had
 its current level of functionality, but we faced a number of specific
 challenges.
 
-\begin{itemize}
-\item First, we had no formal development model: no code review, no
+\begin{enumerate}
+
+\item We had no formal development model: there was no code review, no
   formatting requirements, no continuous integration, and no API
   stability requirements.  As a result we were constantly in a
-  state of uncertainty about khmer's quality.
+  state of uncertainty about khmer's quality and stability.  In practice,
+  this manifested as highly variable code quality, uneven density of
+  bugs in different pieces of core functionality, and periods where
+  key pieces of functionality did not function properly.
 
-\item Second, our developers have a variety of experience: some were
-  expert computational biologists with little to no programming
-  experience, while others were experienced open source software
-  developers with little to no computational biology background.  This
-  meant that we could not confidently rely on good domain
-  understanding {\em and} good software development hygiene from any
-  one developer.
+\item Our developers had a variety of experience: some were expert
+  computational biologists with little to no programming experience,
+  while others were experienced open source software developers with
+  little to no computational biology background.  This meant that we
+  could not confidently rely on good domain understanding {\em and}
+  good software development hygiene from any one developer.  One
+  particular outcome of this mismatch was the development of a
+  significant ancillary codebase of redundant and semi-functional
+  scripts that made use of core khmer functionality but was not
+  integrated into the project; we also encountered situations where
+  biologically inappropriate data transformations were made for sound
+  engineering reasons, e.g. the elimination of ambiguous nucleotides
+  from input data.
 
-\item Third, like many bioinformatics projects, khmer is both {\em
+\item Like many bioinformatics projects, khmer is both {\em
   research} and {\em production} software: our lab is constantly
   extending khmer in new directions, at the same time as we and others
-  apply its existing functionality to pressing biology research
-  problems. While managing regular change is a traditional challenge
-  for software development on long-running projects, the problem was
-  exacerbated here because long-term planning was impractical given
+  apply its existing functionality to analyze biological data.
+  While managing regular change is a traditional challenge
+  for software development on any long-running project, the problem was
+  exacerbated here: long-term planning was impractical given
   the high rate of technical innovation in sequencing data generation.
 
-\item Fourth, khmer exists within an ecosystem of tools. khmer itself
-  primarily acts as a filter for sequence data, which is generated in
-  particular formats by upstream tools and is then consumed in those
-  same formats by downstream tools.  We had no systematic testing of
-  khmer within its larger ecosystem, and generally had to be alerted
-  to such problems by users.
+\item khmer exists within an ecosystem of tools. khmer itself
+  primarily filters sequence data, which is generated in specific
+  formats by upstream tools and is then consumed in those same formats
+  by downstream tools.  We had no systematic testing of khmer within
+  its larger ecosystem, and generally relied on users to find
+  problems.  In one particular instance, a minor typo in a downstream
+  processing output function meant that while all internal tests
+  passed, no external programs could consume khmer output
+  successfully.
 
-\end{itemize}
+\end{enumerate}
 
 Collectively these challenges made us believe that khmer software
 development was not sustainable without significant investment in
-software engineering. Either \begin{inparaenum}[(1)] the research development
-would falter in the face of increasingly high maintenance demands, or \item
-khmer's stable functionality would start to deteriorate, or \item
-both\end{inparaenum}.  To address these
-challenges, CTB secured three years of NIH funding through the 2012
-BIG DATA competition, and hired a software developer who also had a biology
-education and bioinformatics experience, MRC\@
+software engineering. Either \begin{inparaenum}[(1)] \item the
+  research development would falter in the face of increasingly high
+  maintenance demands, or \item khmer's stable functionality would
+  start to deteriorate, or \item both\end{inparaenum}.  To address
+  these challenges, CTB secured three years of NIH funding through the
+  2012 NIF/NSF BIG DATA funding call, and hired MRC, a software developer
+  with biology education and bioinformatics experience.
 
-%% @CTB
 %% "How are the challenges described in 1 and 2 were manifested in reality?
-%% What were the causes?'' (reviewer B)
+%% What were the causes?'' (reviewer B) -- CTB: I think I handled this.
 
 % What are the design bugs that have emerged? 
 % Threading is hard. Sig refactoring needed to support planned uses. Hard to migrate to Python 3.x
@@ -263,19 +278,7 @@ research work, user support, community engagement, and collaborations.
 % interesting but very brief and leaves reader high and dry in the end. Expand
 % acronyms on first appearance. Second paragraph in [this section] reads a bit 
 % awkward. Mostly colloquialism and anecdotal, even with an experience paper, 
-% the language looks unsettled.''
-
-
-%Our guiding principle, as eloquently put by MRC's first mentor, is
-%``What is best for science?'' \cite{Nagy2007}. The (re)usability of
-%khmer suite by others and the group's own ability to continue to
-%extend and innovate with the codebase were two concrete areas of
-%concern. On the usability front the most pressing issue was the
-%lack of versioned releases and the fragility of the complicated build
-%procedure due to a mixture of C++, C, and Python.  There was an
-%existing body of tests but we did not know how well they cover the C++
-%code.  Moreover, there was no regular continuous integration (automated
-%extension of the existing tests as code is committed).
+% the language looks unsettled.'' @
 
 \section{Releasing version 1.0}
 
@@ -291,7 +294,11 @@ now meets 69\% of the Software Sustainability Institute's checklist
 For version 1.0, we added continuous integration, semantic versioning,
 acceptance testing, development standards, code coverage analysis,
 explicit citation information, and code review, among other process
-alterations and features.  Below, we discuss these in more detail.
+alterations and features.  While these are standard software
+development and engineering practices outside of academia, we find
+that most scientific software developers are unaware of them.
+Moreover, their interaction with research goals has not been well
+explored, so we discuss them in more detail.
 
 \subsection{Development standards and semantic versioning}
 
@@ -299,22 +306,24 @@ We instituted a number of development standards, including coding
 styles and versioning requirements for backwards compatibility.  Our
 goal was to have explicit written requirements that would inform new
 contributors of our expectations, whether they have significant prior
-programming experience or not.
+programming experience or not.  A particularly important part of this
+goal was to make sure that new contributors {\em within the lab} had
+a clear set of expectations.
 
 Uniformity of coding styles helps maintain code readability and
 enables easier code review, so we chose a coding style standard for
 both C++ and Python. The specific choice for coding style was made
 somewhat arbitrarily, largely to avoid protracted bikeshedding
-discussions: the important goal was to have {\em some} coding standard. For
-C++, we chose the ``One True Brace Style'' and the Artistic
-Style program for indentation and bracing.  For Python, we settled on the default
-PEP8 standard, for which several checking and reformatting tools
-exist.
+discussions: the important goal was to have {\em some} coding
+standard. For C++, we chose the ``One True Brace Style'' and the
+Artistic Style program for indentation and bracing.  For Python, we
+settled on the default PEP8 standard, for which several checking and
+reformatting tools exist.
 
 We also imposed a backwards compatibility requirement on our command
 line scripts.  While we did not want to stabilize the Python or C++
-API because we are actively changing khmer internals, we felt that
-our command line scripts were sufficiently stable to require no
+API because we are actively changing khmer internals, we felt that our
+command line scripts were sufficiently stable to require no
 backwards-incompatible changes on the 1.0 series of releases.
 
 We have therefore committed to {\em semantic versioning}\cite{semver} for the
@@ -332,7 +341,9 @@ specific behavior from a range of versions, and to easily determine
 whether or not they should upgrade their installation.  Of particular
 importance, pipeline developers and users can rely on stable behavior
 from minor releases.  We expect this to make khmer a more reliable
-member of the sequencing analysis software ecosystem.
+member of the sequencing analysis software ecosystem, and also reduce
+the confusion that existing users will experience with new releases of
+the software.
 
 \subsection{Continuous integration}
 
@@ -351,7 +362,10 @@ The most important application of continuous integration for us has
 been automated checking of merge requests prior to code review or
 merge into the mainline.  This automatically ensures a basic quality
 of committed code and also alerts developers to any platform
-incompatibilities before they merge.
+incompatibilities before they merge.  It also serves as an important
+check for less experienced software developers, who may have forgotten
+to run one or another element of the required checks on their
+contribution.
 
 % @cite chapter on CI.
 
@@ -360,13 +374,12 @@ incompatibilities before they merge.
 Code coverage analysis is an important part of software development:
 statement coverage, or how many lines of code are executed in some way
 by unit and functional tests, can readily identify untested regions of
-code.\footnote{Note that while executed code is not guaranteed to be
-  correct, code that is not executed by tests is certainly not tested,
-  so high code coverage is a necessary but not sufficient condition
-  for thorough testing.}  While khmer had several hundred tests by the
-time MRC started working with it, the tests were all at the Python
-level and we had no estimate of how well they covered the C++ code
-base.
+code.  Note that while executed code is not guaranteed to be correct,
+code that is not executed by tests is certainly not tested, so high
+code coverage is a necessary but not sufficient condition for thorough
+testing.  While khmer had several hundred tests by the time MRC
+started working with it, the tests were all at the Python level and we
+had no estimate of how well they covered the C++ code base.
 
 % Reviewer B: `` Footnote 1 can be merged into main text.''
 
@@ -380,6 +393,7 @@ are flagged as ``unhealthy'' in our continuous integration system.
 % ``How was this measured? Also, it is not an important measure. A more
 % important measure is how many function points were tested? or what number of
 % functionalities are covered by these tests.
+% CTB: I disagree that it's not an important measure.
 
 \subsection{Code contribution process and code review}
 
@@ -402,47 +416,6 @@ development process will encourage contributions and also serve as a
 training and education process for less experienced developers.  By
 making our developer contribution requirements explicit, we may also
 serve as a guide for other bioinformatics software projects.
-
-%\subsection{Unified build system}
-
-%Pip installable.
-
-\subsection{Citation information}
-
-% @ctb: it was suggested that we move this subsection to the end. MRC agrees 
-
-Scientific funding for software maintenance depends on demonstrating
-the scientific utility of software; this is typically done via
-citations.  For both algorithms and software, citations demonstrate
-usage, utility, and impact.  However, scientific software may contain
-multiple novel algorithms, and the software itself may be published
-separately from the proof of concept of the algorithms.  For khmer,
-this is a serious concern: we have publications or preprints on three
-novel approaches implemented in khmer, and we are also continually
-updating the software itself.  We also have a significant online
-presence. This demonstrably confuses users: we have observed citations
-of the incorrect paper for the algorithm being used, citations of our
-documentation, and (oddly enough) citations of khmer documentation
-hosted on other institutions' Web sites.
-
-To clarify and regularize citation practices, we added explicit
-citation guidelines in two places: first, in the CITATION file at the
-top of the distribution, and second, in the output from every script.
-We now ask that users cite not only the software itself (via a
-software paper), but also the algorithm papers relevant to the
-software features being used.
-
-While we worry about appearing to be ``citation greedy\,'' we also
-believe quite strongly that our ongoing efforts to maintain the
-software are a critical part of our research, and that the researchers
-and developers involved in that effort should be acknowledged
-appropriately in the scientific literature.  This can really only be
-addressed by requiring citation of the relevant software paper, which
-will be updated for every significant version release with contributor
-names.  At the same time, we also believe that our algorithm
-contributions are independently important and should be acknowledged
-by citations.  Hence, the requirement that when our algorithms are
-used, the relevant algorithms paper should be cited.
 
 \subsection{Integration and acceptance testing}
 
@@ -477,10 +450,45 @@ command-line parameter handling were discovered in the 48 hours before
 release; these bugs generally had to do with common command line cases
 that were not readily testable at the unit and functional level.
 
-We are also maintaining our acceptance tests for Ubuntu 12.04, a Long
+We are also targeting our acceptance tests for Ubuntu 12.04, a Long
 Term Support version of Linux that will be supported through 2017.
 This should further decrease maintenance efforts for our acceptance
 tests.
+
+\subsection{Citation information}
+
+Scientific funding for software maintenance depends on demonstrating
+the scientific utility of software; this is typically done via
+citations.  For both algorithms and software, citations demonstrate
+usage, utility, and impact.  However, scientific software may contain
+multiple novel algorithms, and the software itself may be published
+separately from the proof of concept of the algorithms.  For khmer,
+this is a serious concern: we have publications or preprints on three
+novel approaches implemented in khmer, and we are also continually
+updating the software itself.  We also have a significant online
+presence. This demonstrably confuses users: we have observed citations
+of the incorrect paper for the algorithm being used, citations of our
+documentation, and (oddly enough) citations of khmer documentation
+hosted on other institutions' Web sites.
+
+To clarify and regularize citation practices, we added explicit
+citation guidelines in two places: first, in the CITATION file at the
+top of the distribution, and second, in the output from every script.
+We now ask that users cite not only the software itself (via a
+software paper), but also the algorithm papers relevant to the
+software features being used.
+
+While we worry about appearing to be ``citation greedy\,'' we also
+believe quite strongly that our ongoing efforts to maintain the
+software are a critical part of our research, and that the researchers
+and developers involved in that effort should be acknowledged
+appropriately in the scientific literature.  This can really only be
+addressed by requiring citation of the relevant software paper, which
+will be updated for every significant version release with contributor
+names.  At the same time, we also believe that our algorithm
+contributions are independently important and should be acknowledged
+by citations.  Hence, the requirement that when our algorithms are
+used, the relevant algorithms paper should be cited.
 
 \section{Persistent Challenges in Research Software Development}
 
@@ -523,7 +531,7 @@ people with deeper training.
 \section{Concluding thoughts}
 
 % ``Future of the tool should have been discussed in much more depth and detail
-% than is currently``
+% than is currently`` @
 
 % “Consider using bold or italics to highlight main conclusions - helps someone
 % skimming this section.”
@@ -576,27 +584,6 @@ developer base expands and/or turns over. We hope and believe that our
 approaches will let us do this, but we need a longer baseline of
 observations to find out.
 
-
-%CTB: The two primary challenges are cultural (which was expected) and
-%technical (which was unexpected).  By cultural, I mean that there is
-%virtually no culture of computational reproducibility or software
-%development in biology, which makes it hard to discuss much less
-%justify.  Technically, the infrastructure and tools for enabling
-%reproducibility are still quite young and do not fit the needs of
-%subdomains terribly well.  For example, I thought that other fields
-%would have tools for provenance and workflow tracking that we could
-%easily adapt; this is simply not the case.  In fact, our most effective set
-%of tools has emerged from open source and data science work, including
-%the excellent Python and GitHub communities, IPython Notebook, and
-%cloud computing infrastructure.
-
-%[et cetera]
-
-%[Summary & conclusion]
-
-% @talk about importance of software; novelty squared.
-
-% future plans?
 
 \section*{Acknowledgments}
 
