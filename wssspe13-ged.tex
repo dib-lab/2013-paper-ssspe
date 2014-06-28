@@ -143,7 +143,9 @@ an energetic research program in bioinformatics.  This has
 traditionally been hard for small scientific labs due to many factors
 including lack of expertise and lack of sustained funding (@cite).
 Below, we discuss our experience in navigating the challenges in making a
-small-lab software project sustainable.
+small-lab software project sustainable.  We focus particularly on how
+we changed our software development process to support a more sustainable
+development process.
 
 \section{Background}
 
@@ -243,7 +245,43 @@ software engineering. Either \begin{inparaenum}[(1)] \item the
 %exploratory development of novel substring approaches to biological
 %data analysis.
 
-\section{Initial Evaluation}
+\section{Upgrading the development process}
+
+\subsection{The khmer lifecycle}
+
+As described above, khmer started as a small single-developer project
+but was never published, and development lapsed for several years.  In
+2010, we repurposed khmer as a testbed for trying out approaches to
+memory-efficient k-mer counting in large data sets (@cite qp paper).
+Over the next few years, several developers contributed to khmer
+functionality, culminating in implementations of a compressible
+graph representation for DNA sequences and a streaming lossy compression
+algorithm (@cite pell, diginorm).  In addition to providing a demonstration
+implementation for the purposes of publishing these methods, khmer also
+proved directly useful in data analysis (@cite Adina soil).  Because
+we provided khmer as open source software and discussed it online in
+social media, it was also adopted by a number of other groups who had
+similar problems.
+
+Because khmer was being used both as a methods testbed and for actual
+data analysis, the project lead (CTB) made a concerted effort to keep
+khmer extensible while maintaining existing functionality.  This was
+largely reflected in a conservative approach to merging in
+contributions from graduate students in the lab, but was also enabled
+by a significant enthusiasm for automated tests at the unit,
+functional, and scripting level.  Nonetheless during this period the
+software regularly suffered significant bugs, and large portions of
+the code base were added on a trial basis but then left unused when
+research went in different directions.
+
+In 2013, significant funding for further software development was
+obtained through an NIH R01 grant, and MRC was hired to manage the
+development process. During this period, a number of new graduate
+students also joined the lab, and it became clear that they would
+be working on the khmer code base as part of their research.
+This made us take a step back to evaluate our overall process.
+
+\subsection{Evaluating the project's sustainability}
 
 To guide our development of a rational software development process,
 we applied the Software Sustainability Institute's Criteria-based
@@ -257,50 +295,24 @@ overall fulfillment of 62 of the 163 items, or 38\%.
 % @CTB: could @MRC sprinkle in some details about what wasn't met, that
 % is now met by the criteria below?
 
-The low fulfillment of the SSI's criteria was slightly embarrassing for
-the group for several reasons: CTB is a collaborator and co-author
-with SSI;\@ quotes from him are featured in case study
-presentations~\cite{SSI-casestudies}; he is cited as someone who is doing things
-the correct way~\cite{SSI-recomputation}; and he regularly criticizes the
-field for poor software process.  This is the point, however: because
-these goals were highly valued within the lab, and because the
-software filled a novel niche, CTB successfully argued for resources
-to address these issues~\cite{khmer-future}.  Making significant
-progress towards these ends isn't merely a matter of budgets and
-hiring: even with a full time hybrid software
-engineer/bioinformatician on the team it is not straightforward to
-prioritize infrastructure work, let alone navigate between the core
-research work, user support, community engagement, and collaborations.
-
-% @CTB more here.
-
 % ``one would expect more details. The description of Khmer's lifecycle looks 
 % interesting but very brief and leaves reader high and dry in the end. Expand
 % acronyms on first appearance. Second paragraph in [this section] reads a bit 
 % awkward. Mostly colloquialism and anecdotal, even with an experience paper, 
 % the language looks unsettled.'' @
 
-\section{Releasing version 1.0}
+\subsection{Changing our development process}
 
-% ``Much of section 4 repeats standard software development and engineering
-% practices, consider condensing some of the paragraphs in section 4.1-4.6''
-% (reviewer B)
-
-On April 1st, 2014, we released khmer 1.0.  While by no means a finished
-product, we believe we are on a much more sustainable development path as khmer
-now meets 69\% of the Software Sustainability Institute's checklist
-\cite{khmer-1.0-assessment}.
-
-For version 1.0, we added continuous integration, semantic versioning,
-acceptance testing, development standards, code coverage analysis,
-explicit citation information, and code review, among other process
-alterations and features.  While these are standard software
+For version 1.0, we adopted continuous integration, semantic
+versioning, acceptance testing, development standards, code coverage
+analysis, explicit citation information, and code review, among other
+process alterations and features.  While these are standard software
 development and engineering practices outside of academia, we find
 that most scientific software developers are unaware of them.
 Moreover, their interaction with research goals has not been well
 explored, so we discuss them in more detail.
 
-\subsection{Development standards and semantic versioning}
+\subsubsection{Development standards and semantic versioning}
 
 We instituted a number of development standards, including coding
 styles and versioning requirements for backwards compatibility.  Our
@@ -345,7 +357,7 @@ member of the sequencing analysis software ecosystem, and also reduce
 the confusion that existing users will experience with new releases of
 the software.
 
-\subsection{Continuous integration}
+\subsubsection{Continuous integration}
 
 Continuous integration ensures that automated tests are executed
 regularly on standard platforms.  While developers are expected to
@@ -369,7 +381,7 @@ contribution.
 
 % @cite chapter on CI.
 
-\subsection{Integrated code coverage analysis}
+\subsubsection{Integrated code coverage analysis}
 
 Code coverage analysis is an important part of software development:
 statement coverage, or how many lines of code are executed in some way
@@ -395,7 +407,7 @@ are flagged as ``unhealthy'' in our continuous integration system.
 % functionalities are covered by these tests.
 % CTB: I disagree that it's not an important measure.
 
-\subsection{Code contribution process and code review}
+\subsubsection{Code contribution process and code review}
 
 While code review is an important part of ensuring that only ``good''
 code and feature are included in a project, it is typically very time
@@ -417,7 +429,7 @@ training and education process for less experienced developers.  By
 making our developer contribution requirements explicit, we may also
 serve as a guide for other bioinformatics software projects.
 
-\subsection{Integration and acceptance testing}
+\subsubsection{Integration and acceptance testing}
 
 An ongoing concern for khmer is how well our software integrates with
 other packages.  Because khmer primarily consumes the output of
@@ -455,7 +467,7 @@ Term Support version of Linux that will be supported through 2017.
 This should further decrease maintenance efforts for our acceptance
 tests.
 
-\subsection{Citation information}
+\subsubsection{Citation information}
 
 Scientific funding for software maintenance depends on demonstrating
 the scientific utility of software; this is typically done via
@@ -489,6 +501,13 @@ names.  At the same time, we also believe that our algorithm
 contributions are independently important and should be acknowledged
 by citations.  Hence, the requirement that when our algorithms are
 used, the relevant algorithms paper should be cited.
+
+\subsection{Releasing version 1.0}
+
+On April 1st, 2014, we released khmer 1.0.  While by no means a
+finished product, we now believe we are on a much more sustainable
+development path.  In particular, khmer now meets 69\% of the Software
+Sustainability Institute's checklist \cite{khmer-1.0-assessment}.
 
 \section{Persistent Challenges in Research Software Development}
 
