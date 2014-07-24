@@ -8,8 +8,6 @@
 %% collection
 
 %% Minor revisions:
-%% Some reordering of discussion
-%% Extension of the abstract
 %% Additional citations as noted in reviewer comments
 
 %% 'detailed and deeper information about the tool’s growth such as users, 
@@ -68,32 +66,14 @@ C. Titus Brown$^{1,2\ast}$\\
   released version 1.1).  The khmer software is developed openly
   at {\sf http://github.com/ged-lab/khmer/}.}
 
-%% MRC sees the story in this paper as: we measured our sustainability, took
-%% measures to improve it and measured again. Our lives are better for it and
-%% so is the project. List of details within.
-
-
-\setlength{\parindent}{0pt}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.70ex}
 
 \section{Introduction}
-
-%% Does the paper understand and recognize other efforts in the area in order
-%% to frame the discussion?
-%% Reviewer B: No.
-%% Reviewer C: Yes. In particular section 3 –use of the SSI evaluation
-%% criteria. Was quite interested in coding styles adopted for python and C+  
-
 %% Does the paper summarize the experiences of the authors, including
 %% reflection on the importance of the arguments and conclusions?
 %% Reviewer B: Partially.
 %% Reviewer C: Yes
-
-%% Is the paper written for a general research audience?
-%% Reviewer B: No.
-%% Reviewer C: Yes.
-
 % Hard to judge from the introduction what has been done in the paper.
 % Introduction seems a bit detached from the rest of the paper.
 
@@ -223,10 +203,6 @@ software engineering. Either \begin{inparaenum}[(1)] \item the
   these challenges, CTB secured three years of NIH funding through the
   2012 NIF/NSF BIG DATA funding call, and hired MRC, a software developer
   with biology education and bioinformatics experience.
-
-%% "How are the challenges described in 1 and 2 were manifested in reality?
-%% What were the causes?'' (reviewer B) -- CTB: I think I handled this.
-
 % What are the design bugs that have emerged? 
 % Threading is hard. Sig refactoring needed to support planned uses. Hard to migrate to Python 3.x
 
@@ -297,14 +273,15 @@ met 19 of 44 (or 43\%) of of the SSI's criteria for Usability, and 43
 of 118 (or 36\%) of the criteria for Sustainability \& Maintainability, for an 
 overall fulfillment of 62 of the 163 items, or 38\%.
 
-% @CTB: could @MRC sprinkle in some details about what wasn't met, that
-% is now met by the criteria below?
-
-% ``one would expect more details. The description of Khmer's lifecycle looks 
-% interesting but very brief and leaves reader high and dry in the end. Expand
-% acronyms on first appearance. Second paragraph in [this section] reads a bit 
-% awkward. Mostly colloquialism and anecdotal, even with an experience paper, 
-% the language looks unsettled.'' @
+Some of the critera that wasn't being initially met but now are fulfilled:
+\begin{inparaenum}[(1)] \item Comprehensive documentation (of the scripts).
+  \item Documentation lists what version it applies to \item Automated build
+  \item Documented build \item Dependency management \item Installer and 
+  uninstaller \item Consistent copyright and license statements in all source
+  files \item Both source and binary distributions \item Release checklist
+  \item Coding standards conformance testing with enforcement \item Test
+  coverage testing \item Continuous integration \item Email address for project
+  \end{inparaenum}.
 
 \subsection{Changing our development process}
 
