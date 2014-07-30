@@ -72,10 +72,10 @@ common because they can be easily hashed, counted, and compared within
 and between data sets.  However, as data sets have grown in size,
 approaches to analyzing k-mers have fallen behind the memory and
 compute scaling curves.  khmer provides several functions: approximate
-k-mer counting using a CountMin Sketch~\cite{Zhang2013}, an
+k-mer counting using a CountMin Sketch~\cite{Zhang2014}, an
 implementation of a compressible k-mer connectivity
 graph~\cite{Pell2012}, and a streaming lossy compression algorithm for
-large data sets~\cite{Brown2012}.  These were first implemented as a
+large data sets~\cite{diginorm}.  These were first implemented as a
 part of bioinformatics research publications, but due to their broad
 utility have now been used in a number of data analysis publications
 (cite cite cite).
@@ -211,13 +211,13 @@ software engineering. Either \begin{inparaenum}[(1)] \item the
 As described above, khmer started as a small single-developer project
 but was never published, and development lapsed for several years.  In
 2010, we repurposed khmer as a testbed for trying out approaches to
-memory-efficient k-mer counting in large data sets (@cite qp paper).
+memory-efficient k-mer counting in large data sets \cite{Zhang2014}.
 Over the next few years, several developers contributed to khmer
 functionality, culminating in implementations of a compressible
 graph representation for DNA sequences and a streaming lossy compression
-algorithm (@cite pell, diginorm).  In addition to providing a demonstration
-implementation for the purposes of publishing these methods, khmer also
-proved directly useful in data analysis (@cite Adina soil).  Because
+algorithm \cite{Pell2012} \cite{diginorm}.  In addition to providing a
+demonstration implementation for the purposes of publishing these methods,
+khmer also proved directly useful in data analysis \cite{Howe14032014}. Because
 we provided khmer as open source software and discussed it online in
 social media, it was also adopted by a number of other groups who had
 similar problems.
