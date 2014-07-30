@@ -7,18 +7,6 @@
 %% lifecycle and its ``growing pains'' would better adjust it to fit with the
 %% collection
 
-%% Minor revisions:
-%% Additional citations as noted in reviewer comments
-
-%% 'detailed and deeper information about the tool’s growth such as users, 
-%% communities, usage statistics, effort areas would be interesting and 
-%% informative'
-
-% 'the language of the paper feels too informal and should be improved.
-% Colloquialisms should be avoided such as: ``bioinformaticians invent a
-% new format every 5 minutes on average''
-
-
 \documentclass[12pt]{article}
 \usepackage{simplemargins}
 \usepackage{times}
@@ -33,7 +21,7 @@
 }
 \pagestyle{empty}
 
-\date{April 2014}
+\date{July 2014}
 
 
 \setlength{\parindent}{0pt}
@@ -70,16 +58,6 @@ C. Titus Brown$^{1,2\ast}$\\
 \setlength{\parskip}{0.70ex}
 
 \section{Introduction}
-%% Does the paper summarize the experiences of the authors, including
-%% reflection on the importance of the arguments and conclusions?
-%% Reviewer B: Partially.
-%% Reviewer C: Yes
-% Hard to judge from the introduction what has been done in the paper.
-% Introduction seems a bit detached from the rest of the paper.
-
-%@ "Citing the summary report of the WSSSPE1 (arxiv.org/abs/1404.7414) suggested
-% as it touches many aspects covered in the present paper."
-
 Computational tools for analyzing large volumes of DNA/RNA sequencing data
 have become increasingly necessary over the last decade.  The growth
 of sequencing capacity and the associated expansion of scientific
@@ -116,8 +94,8 @@ The user base for khmer is unknown but appears to be significant.
 While we do not track users per se, there are over 1500 downloads of
 khmer a month from the Python packaging distribution site, and about
 2000 visits to the khmer documentation site a month.  The GitHub site
-is in the 97th percentile of software on GitHub for both 'stars' (129)
-and 'forks' (76), indicating general interest.  Scientifically, there
+is in the 97th percentile of software on GitHub for both `stars' (129)
+and `forks' (76), indicating general interest.  Scientifically, there
 are over 30 papers citing khmer for data analysis purposes, and the
 algorithms and approaches initially implemented in khmer have been
 adapted to and incorporated in several other software packages.
@@ -244,8 +222,8 @@ we provided khmer as open source software and discussed it online in
 social media, it was also adopted by a number of other groups who had
 similar problems.
 
-Because khmer was being used both as a methods testbed and for actual
-data analysis, the project lead (CTB) made a concerted effort to keep
+As khmer was being used both as a methods testbed and for actual
+dta analysis, the project lead (CTB) made a concerted effort to keep
 khmer extensible while maintaining existing functionality.  This was
 largely reflected in a conservative approach to merging in
 contributions from graduate students in the lab, but was also enabled
@@ -257,7 +235,7 @@ research went in different directions.
 
 In 2013, significant funding for further software development was
 obtained through an NIH R01 grant, and MRC was hired to manage the
-development process. During this period, a number of new graduate
+development process. Also during this period, a number of new graduate
 students also joined the lab, and it became clear that they would
 be working on the khmer code base as part of their research.
 This made us take a step back to evaluate our overall process.
@@ -272,16 +250,6 @@ community~\cite{khmer-assessment}. The summary from that report was grim: khmer
 met 19 of 44 (or 43\%) of of the SSI's criteria for Usability, and 43
 of 118 (or 36\%) of the criteria for Sustainability \& Maintainability, for an 
 overall fulfillment of 62 of the 163 items, or 38\%.
-
-Some of the critera that wasn't being initially met but now are fulfilled:
-\begin{inparaenum}[(1)] \item Comprehensive documentation (of the scripts).
-  \item Documentation lists what version it applies to \item Automated build
-  \item Documented build \item Dependency management \item Installer and 
-  uninstaller \item Consistent copyright and license statements in all source
-  files \item Both source and binary distributions \item Release checklist
-  \item Coding standards conformance testing with enforcement \item Test
-  coverage testing \item Continuous integration \item Email address for project
-  \end{inparaenum}.
 
 \subsection{Changing our development process}
 
@@ -317,8 +285,8 @@ reformatting tools exist.
 We also imposed a backwards compatibility requirement on our command
 line scripts.  While we did not want to stabilize the Python or C++
 API because we are actively changing khmer internals, we felt that our
-command line scripts were sufficiently stable to require no
-backwards-incompatible changes on the 1.0 series of releases.
+command line scripts were sufficiently stable to require that there would never
+be any backwards-incompatible changes in subsequent releases on the 1.0 series.
 
 We have therefore committed to {\em semantic versioning}\cite{semver} for the
 command line scripts that come with khmer.  This imposes a
@@ -349,7 +317,7 @@ environments.  Continuous integration frees individual developers from
 having to execute their tests manually across many environments by
 automating the entire process on commit.  Our continuous integration
 system, built on top of Jenkins and running on a Rackspace donated
-Linux server and an internal Mac OS X machine, also runs style
+Linux server and an in-house Mac OS X machine, also runs style
 checkers and reports code coverage summaries.
 
 The most important application of continuous integration for us has
@@ -375,19 +343,12 @@ testing.  While khmer had several hundred tests by the time MRC
 started working with it, the tests were all at the Python level and we
 had no estimate of how well they covered the C++ code base.
 
-% Reviewer B: `` Footnote 1 can be merged into main text.''
-
 Combined C++ and Python code coverage was instituted in October 2013
 and we were pleasantly surprised to find that over 80\% of the khmer
 codebase was executed in the tests.  Since October we have increased
 the code coverage percentage to over 90\%. This number is now
 calculated on every pull request (see below) and significant decreases
 are flagged as ``unhealthy'' in our continuous integration system.
-
-% ``How was this measured? Also, it is not an important measure. A more
-% important measure is how many function points were tested? or what number of
-% functionalities are covered by these tests.
-% CTB: I disagree that it's not an important measure.
 
 \subsubsection{Code contribution process and code review}
 
@@ -434,17 +395,17 @@ through quality control, error trimming, digital normalization, and
 assembly; at the end we check that we obtain approximately the
 expected results, vice minor details that change with different
 versions of external software.  We have been greatly aided in
-developing acceptance tests by our standard ``protocols'' for sequence
+developing acceptance tests by our own standard ``protocols'' for sequence
 analysis: our acceptance tests go through the first three parts of the
 Eel Pond mRNAseq protocol (http://khmer-protocols.readthedocs.org/).
 
 Acceptance testing proved to be extremely important in the release
 process.  Four different bugs having to do with installation and
 command-line parameter handling were discovered in the 48 hours before
-release; these bugs generally had to do with common command line cases
-that were not readily testable at the unit and functional level.
+release of version 1.0; these bugs generally had to do with common command line
+cases that were not readily testable at the unit and functional level.
 
-We are also targeting our acceptance tests for Ubuntu 12.04, a Long
+We are also targeting our acceptance tests for Ubuntu 14.04, a Long
 Term Support version of Linux that will be supported through 2017.
 This should further decrease maintenance efforts for our acceptance
 tests.
@@ -490,6 +451,17 @@ On April 1st, 2014, we released khmer 1.0.  While by no means a
 finished product, we now believe we are on a much more sustainable
 development path.  In particular, khmer now meets 69\% of the Software
 Sustainability Institute's checklist \cite{khmer-1.0-assessment}.
+
+Some of the critera that wasn't being initially met but now are fulfilled are:
+\begin{inparaenum}[(A)] \item Comprehensive documentation (of the scripts).
+  \item The documentation lists what version it applies to \item An automated
+  build system \item Documention of the build \item Dependency management \item
+  Installer and uninstaller \item Consistent copyright and license statements
+  in all source files \item Both source and binary distributions \item Release
+  checklist \item Coding standards conformance testing with enforcement \item
+  Test coverage testing \item Continuous integration \item Email address for
+  the project \end{inparaenum}.
+
 
 \section{Persistent Challenges in Research Software Development}
 
@@ -578,6 +550,15 @@ maintaining project stability.  A formal code review by an experienced
 developer is the enforcement mechanism that ensures that basic requirements
 are met.
 
+Our approach can be summarized thusly: we treat the development of the khmer
+scientific codebase as a distributed open-source project that doesn't
+prioritize internal over external contributions. Everyone has to meet the
+clearly stated expectations; un-proven experimental work by the graduate
+students and others are kept in seperate branches until proven to be useful.
+Changes to the core are only introduced when necessary and not any sooner (as
+in the style of agile development). This allows us to balance the two purposes
+of khmer: as a production codebase and as a foundation for research.
+
 One important caveat is that we don't yet know how well any of this is
 going to work!  Our chief goals are to enable further research with
 khmer and maintain existing functionality, all while our
@@ -604,6 +585,5 @@ Nederbragt for helpful comments on early drafts.
 
 %"The five stars of research software" http://www.software.ac.uk/blog/2013-04-09-five-stars-research-software
 
-%"Issues ged-lab/khmer" https://github.com/ged-lab/khmer/issues?direction=desc&milestone=1&page=1&sort=updated&state=open
 
 \end{document}
