@@ -1,5 +1,5 @@
 %% Editorial Revision Requests:
-%% A deeper exploration of the Khmer lifecycle, as noted by the reviewer, would
+%% A deeper exploration of the khmer lifecycle, as noted by the reviewer, would
 %% strengthen the paper
 
 %% Additional major revisions as noted by the reviewer
@@ -69,9 +69,9 @@ The khmer software was born from a need to more scalably analyze short
 fixed-length (20-30 character) words, or ``k-mers'', in large DNA
 sequencing data sets. The use of k-mers in DNA sequence analysis is
 common because they can be easily hashed, counted, and compared within
-and between data sets.  However, as data sets have grown in size,
+and between data sets. However, as data sets have grown in size,
 approaches to analyzing k-mers have fallen behind the memory and
-compute scaling curves.  khmer provides several functions: approximate
+compute scaling curves. khmer provides several functions: approximate
 k-mer counting using a CountMin Sketch~\cite{Zhang2014}, an
 implementation of a compressible k-mer connectivity
 graph~\cite{Pell2012}, and a streaming lossy compression algorithm for
@@ -179,7 +179,7 @@ software engineering. Either \begin{inparaenum}[(1)] \item the
   maintenance demands, or \item khmer's stable functionality would
   start to deteriorate, or \item both\end{inparaenum}.  To address
   these challenges, CTB secured three years of NIH funding through the
-  2012 NIF/NSF BIG DATA funding call, and hired MRC, a software developer
+  2012 NIH/NSF BIG DATA funding call, and hired MRC, a software developer
   with biology education and bioinformatics experience.
 % What are the design bugs that have emerged? 
 % Threading is hard. Sig refactoring needed to support planned uses. Hard to migrate to Python 3.x
@@ -223,7 +223,7 @@ social media, it was also adopted by a number of other groups who had
 similar problems.
 
 As khmer was being used both as a methods testbed and for actual
-dta analysis, the project lead (CTB) made a concerted effort to keep
+data analysis, the project lead (CTB) made a concerted effort to keep
 khmer extensible while maintaining existing functionality.  This was
 largely reflected in a conservative approach to merging in
 contributions from graduate students in the lab, but was also enabled
@@ -258,7 +258,7 @@ versioning, acceptance testing, development standards, code coverage
 analysis, explicit citation information, and code review, among other
 process alterations and features.  While these are standard software
 development and engineering practices outside of academia, we find
-that most scientific software developers are unaware of them.
+that many scientific software developers are unaware of them.
 Moreover, their interaction with research goals has not been well
 explored, so we discuss them in more detail.
 
@@ -288,7 +288,7 @@ API because we are actively changing khmer internals, we felt that our
 command line scripts were sufficiently stable to require that there would never
 be any backwards-incompatible changes in subsequent releases on the 1.0 series.
 
-We have therefore committed to {\em semantic versioning}\cite{semver} for the
+We have therefore committed to {\em semantic versioning} \cite{semver} for the
 command line scripts that come with khmer.  This imposes a
 three-tiered versioning system: for patch version number changes
 (khmer v1.0.x), only minor bug fixes and documentation updates are
@@ -406,7 +406,7 @@ release of version 1.0; these bugs generally had to do with common command line
 cases that were not readily testable at the unit and functional level.
 
 We are also targeting our acceptance tests for Ubuntu 14.04, a Long
-Term Support version of Linux that will be supported through 2017.
+Term Support version of Linux that will be supported through 2019.
 This should further decrease maintenance efforts for our acceptance
 tests.
 
@@ -452,10 +452,10 @@ finished product, we now believe we are on a much more sustainable
 development path.  In particular, khmer now meets 69\% of the Software
 Sustainability Institute's checklist \cite{khmer-1.0-assessment}.
 
-Some of the critera that wasn't being initially met but now are fulfilled are:
+Some of the criteria that wasn't being initially met but now are fulfilled are:
 \begin{inparaenum}[(A)] \item Comprehensive documentation (of the scripts).
   \item The documentation lists what version it applies to \item An automated
-  build system \item Documention of the build \item Dependency management \item
+  build system \item Documentation of the build \item Dependency management \item
   Installer and uninstaller \item Consistent copyright and license statements
   in all source files \item Both source and binary distributions \item Release
   checklist \item Coding standards conformance testing with enforcement \item
@@ -478,7 +478,7 @@ funding will be much easier than if we simply develop khmer for
 others to use.  This is less satisfying than getting funding for maintenance,
 but is a more plausible path forward than relying on maintenance grants.
 
-Second, we must balance maintenance activites with novel research
+Second, we must balance maintenance activities with novel research
 features.  In the face of changing input data (due to instrument and
 experimental protocol changes), different expectations for output
 (bioinformaticians invent a new format every 5 minutes on average),
@@ -554,7 +554,7 @@ Our approach can be summarized thusly: we treat the development of the khmer
 scientific codebase as a distributed open-source project that doesn't
 prioritize internal over external contributions. Everyone has to meet the
 clearly stated expectations; un-proven experimental work by the graduate
-students and others are kept in seperate branches until proven to be useful.
+students and others are kept in separate branches until proven to be useful.
 Changes to the core are only introduced when necessary and not any sooner (as
 in the style of agile development). This allows us to balance the two purposes
 of khmer: as a production codebase and as a foundation for research.
